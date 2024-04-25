@@ -1,6 +1,33 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local timeOut = false
---brave
+
+-- Place this at the top of your server script file
+local lastRobberyTimestamp = nil
+local cooldown = 7200 -- Cooldown in seconds (120 minutes)
+
+-- Function to check if cooldown has expired
+function canPlaceThermite()
+    if lastRobberyTimestamp and (os.time() - lastRobberyTimestamp) < cooldown then
+        return false, cooldown - (os.time() - lastRobberyTimestamp)
+    end
+    return true
+end
+
+-- Function to update the last robbery timestamp
+function updateRobberyTime()
+    lastRobberyTimestamp = os.time()
+end
+
+-- QBCore callback to check the cooldown
+QBCore.Functions.CreateCallback('qb-goldenmuseum:server:checkCooldown', function(source, cb)
+    local canProceed, timeLeft = canPlaceThermite()
+    if canProceed then
+        updateRobberyTime() -- Update the robbery time if they proceed
+    end
+    cb(canProceed, timeLeft)
+end)
+
+
 
 
 QBCore.Functions.CreateCallback('qb-goldenmuseum:server:getCops', function(source, cb)

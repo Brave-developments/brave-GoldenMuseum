@@ -168,30 +168,38 @@ local PlantThermite = function()
     end)
 end
 RegisterNetEvent('qb-goldenmuseum:client:Thermite', function()
-    QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-        if result then 
-            if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
-                TriggerServerEvent("evidence:server:CreateFingerDrop", GetEntityCoords(PlayerPedId()))
-            end
-            QBCore.Functions.TriggerCallback('qb-goldenmuseum:server:getCops', function(cops)
-                if cops >= Config.RequiredCops then
-                    PlantThermite()
-                    exports["memorygame"]:thermiteminigame(12, 4, 4, 120,
-                    function()
-                        ThermiteEffect()
-                    end,
-                    function()
-                        QBCore.Functions.Notify("Thermite failed..", "error")
+    QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasItems)
+        if hasItems then 
+            QBCore.Functions.TriggerCallback('qb-goldenmuseum:server:checkCooldown', function(canProceed, timeLeft)
+                if canProceed then
+                    QBCore.Functions.TriggerCallback('qb-goldenmuseum:server:getCops', function(cops)
+                        if cops >= Config.RequiredCops then
+                            PlantThermite()  
+                            exports["memorygame"]:thermiteminigame(12, 4, 4, 120,
+                            function()
+                                ThermiteEffect() 
+                            end,
+                            function()
+                                QBCore.Functions.Notify("Thermite failed..", "error")  
+                            end)
+                        else
+                            QBCore.Functions.Notify("Not enough police..", "error")
+                        end
                     end)
                 else
-                    QBCore.Functions.Notify("Not enough police..", "error")
+                    local minutesLeft = math.floor(timeLeft / 60)
+                    QBCore.Functions.Notify("Cooldown active. Please wait " .. minutesLeft .. " minutes.", "error")
                 end
-            end) 
+            end)
         else
-            QBCore.Functions.Notify("You are missing something thermite,lighter", "error", 2500)
+            
+            QBCore.Functions.Notify("You are missing some items (thermite, lighter)", "error", 2500)
         end
     end, {"thermite", "lighter"})
 end)
+
+
+
 
 
 
