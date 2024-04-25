@@ -1,6 +1,7 @@
 Forked from IC7 https://github.com/ic71/ic7-GoldenMuseum
 
 Updates made
+
 1.Item Removal Verification
 
 2.Enhanced Error Handling
