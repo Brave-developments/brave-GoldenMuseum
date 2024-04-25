@@ -8,7 +8,7 @@ Config.goldenmuseumLocation = {
     ["coords"] = vector3(-555.34, -616.63, 34.75),
 }
 
-Config.Timeout = 120 * 60 * 1000  
+  
 
 
 Config.WhitelistedWeapons = { 

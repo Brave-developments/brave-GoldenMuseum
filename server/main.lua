@@ -50,17 +50,16 @@ RegisterNetEvent('qb-goldenmuseum:server:setTimeout', function()
     if not timeOut then
         timeOut = true
         TriggerEvent('qb-scoreboard:server:SetActivityBusy', "goldenmuseum", true)
-        Citizen.CreateThread(function()   
-            Citizen.Wait(Config.Timeout) 
+        Citizen.CreateThread(function()
+            Citizen.Wait(Config.Timeout)
+
             for k, v in pairs(Config.Locations) do
                 Config.Locations[k]["isOpened"] = false
                 TriggerClientEvent('qb-goldenmuseum:client:setVitrineState', -1, 'isOpened', false, k)
                 TriggerClientEvent('qb-goldenmuseum:client:setAlertState', -1, false)
+                TriggerEvent('qb-scoreboard:server:SetActivityBusy', "goldenmuseum", false)
             end
-            TriggerEvent('qb-scoreboard:server:SetActivityBusy', "goldenmuseum", false)
             timeOut = false
         end)
-    else
-        TriggerClientEvent('QBCore:Notify', source, 'The museum is still cooling down from the last robbery. Please wait.', 'error')
     end
 end)

@@ -167,22 +167,15 @@ local PlantThermite = function()
         DeleteEntity(thermite)
     end)
 end
-
 RegisterNetEvent('qb-goldenmuseum:client:Thermite', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-        if result then
+        if result then 
             if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                 TriggerServerEvent("evidence:server:CreateFingerDrop", GetEntityCoords(PlayerPedId()))
             end
-
             QBCore.Functions.TriggerCallback('qb-goldenmuseum:server:getCops', function(cops)
                 if cops >= Config.RequiredCops then
                     PlantThermite()
-
-                    QBCore.Functions.RemoveItem("thermite", 1)
-                    QBCore.Functions.RemoveItem("lighter", 1)
-                    QBCore.Functions.Notify("Used one thermite and one lighter.", "success", 2500)
-
                     exports["memorygame"]:thermiteminigame(12, 4, 4, 120,
                     function()
                         ThermiteEffect()
@@ -195,10 +188,11 @@ RegisterNetEvent('qb-goldenmuseum:client:Thermite', function()
                 end
             end) 
         else
-            QBCore.Functions.Notify("You are missing something thermite, lighter", "error", 2500)
+            QBCore.Functions.Notify("You are missing something thermite,lighter", "error", 2500)
         end
     end, {"thermite", "lighter"})
 end)
+
 
 
 RegisterNetEvent('qb-goldenmuseum:client:ThermitePtfx', function()
