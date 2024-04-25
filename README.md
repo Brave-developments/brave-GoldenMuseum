@@ -20,14 +20,14 @@ Add this code to qb-core/shared/items.lua:
 
 
 ```lua
---brave
+--brave GoldenMuseum robbery
 ['burial'] = {['name'] = 'burial', ['label'] = 'Egyptian Artifact', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'burial-mask.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'An Egyptian artifact from the Golden Museum'},
 ['fishingchest'] = {['name'] = 'fishingchest', ['label'] = 'Artifact Chest', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'fishingchest.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Artifact chest from the Golden Museum'},
 ['greek'] = {['name'] = 'greek', ['label'] = 'Ancient Statue', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'greek-bust.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Ancient statue from the Golden Museum'},
 ['jadeite'] = {['name'] = 'jadeite', ['label'] = 'Green Diamond', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'jadeite-stone.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Green diamond from the Golden Museum'},
 ['mask'] = {['name'] = 'mask', ['label'] = 'Golden Mask', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'vip_mask.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Golden mask from the Golden Museum'},
 ['vanpogo'] = {['name'] = 'vanpogo', ['label'] = 'Golden Statue', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'vanpogo.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Golden statue from the Golden Museum'},
---brave
+
 
 ```
 2.Add the img folder to qb-inventory/html/images.
@@ -61,38 +61,43 @@ Add this code to qb-core/shared/items.lua:
 ```
 
 
-4. Add this code in ps-dispatch/client/cl_eventhandlers.lua
+4. Add this code in ps-dispatch/client/alerts.lua
 ```lua
 local function goldenmuseum()
-    local currentPos = GetEntityCoords(PlayerPedId())
-    local locationInfo = getStreetandZone(currentPos)
-    local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
-        dispatchcodename = "goldenmuseum", 
-        dispatchCode = "10-90",
-        firstStreet = locationInfo,
-        gender = gender,
-        model = nil,
-        plate = nil,
-        priority = 2, 
-        firstColor = nil,
-        automaticGunfire = false,
-        origin = {
-            x = currentPos.x,
-            y = currentPos.y,
-            z = currentPos.z
-        },
-        dispatchMessage = _U('Golden Museum Robbery'), 
-        job = {"LEO", "police"} 
-    })
-end 
+    local coords = GetEntityCoords(cache.ped)  -- Ensure 'cache.ped' is defined or passed into this function
+
+    local dispatchData = {
+        message = "goldenmuseum", 
+        codeName = 'goldenmuseum',
+        code = '10-90',
+        icon = 'fas fa-vault',
+        priority = 2,
+        coords = coords,
+        gender = GetPlayerGender(),  -- Ensure this function is accessible
+        street = GetStreetAndZone(coords),  -- Ensure this function is accessible
+        camId = camId,  -- Ensure 'camId' is defined or passed into this function
+        alertTime = nil,
+        jobs = { 'leo' }
+    }
+
+    TriggerServerEvent('ps-dispatch:server:notify', dispatchData)
+end
 exports('goldenmuseum', goldenmuseum)
 
 ```
-5. Add this code in ps-dispatch/server/sv_dispatchcodes.lua
+5. Add this code in ps-dispatch/shared/config.lia
 
 ```lua
-["goldenmuseum"] =  {displayCode = '10-90', description = "Golden Museum Robbery In Progress", radius = 0, recipientList = {'LEO', 'police'}, blipSprite = 124, blipColour = 59, blipScale = 1.5, blipLength = 2, sound = "robberysound", offset = "false", blipflash = "false"},
+  ['goldenmuseum'] = {
+        radius = 0,
+        sprite = 500,
+        color = 2,
+        scale = 1.5,
+        length = 2,
+        sound = 'robberysound',
+        offset = false,
+        flash = false
+    },
 ```
 rewritten By Brave
 
