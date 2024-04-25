@@ -1,21 +1,21 @@
 Forked from IC7 https://github.com/ic71/ic7-GoldenMuseum
 
 Updates made
-Item Removal Verification
+1.Item Removal Verification
 
-Enhanced Error Handling
+2.Enhanced Error Handling
 
-Nested Callback Optimization
+3.Nested Callback Optimization
 
-Improved Player Notifications
+4.Improved Player Notifications
 
-Mini-Game Integration
+5.Mini-Game Integration
 
-Added Global cooldown
+6.Added Global cooldown
 
-Minor Optimization
+7.Minor Optimization
 
-Golden Museum Robbery
+**Golden Museum Robbery**
 
 You can edit everything from config.lua
 
