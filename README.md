@@ -1,12 +1,18 @@
 Forked from IC7 https://github.com/ic71/ic7-GoldenMuseum
 
 Updates made
-Item Removal Verification:
+Item Removal Verification
+
 Enhanced Error Handling
+
 Nested Callback Optimization
+
 Improved Player Notifications
+
 Mini-Game Integration
+
 Added Global cooldown
+
 Minor Optimization
 
 Golden Museum Robbery
