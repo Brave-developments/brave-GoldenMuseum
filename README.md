@@ -31,6 +31,8 @@ Add this code to qb-core/shared/items.lua:
 
 ```
 2.Add the img folder to qb-inventory/html/images.
+
+
 3.Add this code to qb-doorlock/configs:
 ```lua
 ['brave'] = {
