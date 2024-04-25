@@ -51,8 +51,8 @@ Add this code to qb-core/shared/items.lua:
     audioRemote = false,
     slides = false
       --oldMethod = true,
-    --audioLock = {['file'] = 'metal-locker.ogg', ['volume'] = 0.6},
-    --audioUnlock = {['file'] = 'metallic-creak.ogg', ['volume'] = 0.7},
+    audioLock = {['file'] = 'metal-locker.ogg', ['volume'] = 0.6},
+    audioUnlock = {['file'] = 'metallic-creak.ogg', ['volume'] = 0.7},
     --autoLock = 1000,
     --doorRate = 1.0,
     --showNUI = true
