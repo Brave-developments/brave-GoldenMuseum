@@ -4,7 +4,7 @@ Golden Museum Robbery
 
 You can edit everything from config.lua
 
-Video: https://streamable.com/l7etc7
+Video: 
 
 Requirements:
 
