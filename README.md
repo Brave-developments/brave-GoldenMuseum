@@ -13,7 +13,9 @@ Updates made
 
 6.Added Global cooldown
 
-7.Minor Optimization
+7. Updated with latest PS-DISPATCH
+
+8.Minor Optimization
 
 **Golden Museum Robbery**
 
